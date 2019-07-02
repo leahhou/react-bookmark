@@ -8,7 +8,19 @@ class RegisterForm extends Component {
 
     onFormSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state);
+        
+        const { email, password } = this.state;
+
+        fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, password }) 
+        })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.log(error));
     }
 
     onInputChange = (name, event) => {
