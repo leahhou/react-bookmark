@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import axios from "axios";
 
 class RegisterForm extends Component {
     state = { 
@@ -11,15 +12,12 @@ class RegisterForm extends Component {
         
         const { email, password } = this.state;
 
-        fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email, password }) 
-        })
-            .then(response => response.json())
-            .then(data => console.log(data))
+        axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, { email, password})
+            .then(response => {
+                this.props.onRegisterFormSubmit(response.data.token, () => {
+                    this.props.history.push("/");
+                })
+            })
             .catch(error => console.log(error));
     }
 
