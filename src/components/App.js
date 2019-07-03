@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import BookmarksPage from "./pages/BookmarksPage";
 import LocalAPI from "./../apis/local";
+import PrivateRoute from "./PrivateRoute";
 
 class App extends Component {
     constructor(props) {
@@ -38,7 +39,7 @@ class App extends Component {
                             path="/register" 
                             render={(props) => <RegisterPage {...props} onRegisterFormSubmit={this.onRegisterFormSubmit} />} 
                         />
-                        <Route exact path="/bookmarks" component={BookmarksPage} />
+                        <PrivateRoute exact path="/bookmarks" component={BookmarksPage} token={token} />
                         <Route component={NotFoundPage} />
                     </Switch>
                 </div>

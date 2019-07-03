@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import axios from "axios";
+import LocalAPI from "./../../apis/local";
 
 class RegisterForm extends Component {
     state = { 
@@ -12,7 +12,7 @@ class RegisterForm extends Component {
         
         const { email, password } = this.state;
 
-        axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, { email, password})
+        LocalAPI.post(`/auth/register`, { email, password})
             .then(response => {
                 this.props.onRegisterFormSubmit(response.data.token, () => {
                     this.props.history.push("/");
