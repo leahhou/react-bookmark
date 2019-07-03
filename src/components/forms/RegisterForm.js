@@ -12,13 +12,13 @@ class RegisterForm extends Component {
         
         const { email, password } = this.state;
 
-        axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, { email, password })
-        .then(response => {
-            this.props.onRegisterFormSubmit(response.data.token, ()=>{
-                this.props.history.push("/");
+        axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, { email, password})
+            .then(response => {
+                this.props.onRegisterFormSubmit(response.data.token, () => {
+                    this.props.history.push("/");
+                })
             })
-        })
-        .catch(error => console.log(error));
+            .catch(error => console.log(error));
     }
 
     onInputChange = (name, event) => {
