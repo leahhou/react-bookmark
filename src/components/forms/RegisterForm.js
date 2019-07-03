@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import axios from "axios";
 
 class RegisterForm extends Component {
     state = { 
@@ -8,7 +9,16 @@ class RegisterForm extends Component {
 
     onFormSubmit = (event) => {
         event.preventDefault();
-        console.log(this.state);
+        
+        const { email, password } = this.state;
+
+        axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, { email, password })
+        .then(response => {
+            this.props.onRegisterFormSubmit(response.data.token, ()=>{
+                this.props.history.push("/");
+            })
+        })
+        .catch(error => console.log(error));
     }
 
     onInputChange = (name, event) => {
