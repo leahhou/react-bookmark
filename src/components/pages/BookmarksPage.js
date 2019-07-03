@@ -1,20 +1,24 @@
-import React, {Component} from "react";
-import BookmarksForm from "./../forms/BookmarksForm";
+
+import React, { Component } from "react";
+import BookmarkForm from "./../forms/BookmarkForm";
+
 
 class BookmarksPage extends Component {
     state = {
         bookmarks: []
     }
 
-    onBookmakrFormSubmit= (bookmarks) => {
-       this.setState({ bookmarks });
+
+    onBookmarkFormSubmit = (bookmarks) => {
+        this.setState({ bookmarks });
     }
 
     render() {
-        return(
+        return (
             <>
                 <h2>Create New Bookmark</h2>
-                <BookmarksForm onBookmarkFormSubmit={this.onBookmarkFormSubmit}/>
+                <BookmarkForm onBookmarkFormSubmit={this.onBookmarkFormSubmit} />
+
             </>
         );
     }

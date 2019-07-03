@@ -31,6 +31,7 @@ class App extends Component {
                             path="/register" 
                             render={(props) => <RegisterPage {...props} onRegisterFormSubmit={this.onRegisterFormSubmit} />} 
                         />
+                        <Route exact path="/bookmarks" component={BookmarksPage} />
                         <Route component={NotFoundPage} />
                     </Switch>
                 </div>
