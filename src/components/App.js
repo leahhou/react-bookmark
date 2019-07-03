@@ -5,14 +5,22 @@ import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import BookmarksPage from "./pages/BookmarksPage";
+import LocalAPI from "./../apis/local";
 
 class App extends Component {
-    state = {
-        token: sessionStorage.getItem("token") || null
-    }
+    constructor(props) {
+        super(props);
+        const token = sessionStorage.getItem("token") || null;
+        this.state = { token };
+    
+        if (token) {
+            LocalAPI.setAuthHeader(token);
+        }
+    } 
 
     onRegisterFormSubmit = (token, callback) => {
         sessionStorage.setItem("token", token);
+        LocalAPI.setAuthHeader(token);
         this.setState({ token }, callback);
     }
 
