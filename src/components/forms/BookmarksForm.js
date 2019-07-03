@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import axios from "axios";
+import LocalAPI from "./../../apis/local";
 
 
 class BookmarksForm extends Component {
@@ -10,8 +10,8 @@ class BookmarksForm extends Component {
     }
 
     onInputChange = (event) => {
-        const updateState = [];
-        updateState[event.target.name] = event.target.value;
+        // const updateState = [];
+        // updateState[event.target.name] = event.target.value;
         this.setState({[event.target.name]:event.target.value })
     }
 
@@ -19,7 +19,7 @@ class BookmarksForm extends Component {
        event.preventDefault();
        const { title, url } = this.state;
        try {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/bookmarks`, {title, url});
+        const response = await LocalAPI.post('/bookmarks', {title, url});
         this.props.onBookmarkFormSubmit(response.data);
        } catch(error) {
         this.setState( { error });
