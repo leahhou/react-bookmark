@@ -1,13 +1,16 @@
 import React, {Component} from "react";
 import axios from "axios";
 
+const startState = {
+    title: "",
+    url: "",
+    error: null,
+    fetching: false
+}
+
 
 class BookmarksForm extends Component {
-    state = {
-        title: "",
-        url: "",
-        error: null
-    }
+    state = {...startState}
 
     onInputChange = (event) => {
         const updateState = [];
@@ -21,6 +24,7 @@ class BookmarksForm extends Component {
        try {
         const response = await axios.post(`${process.env.REACT_APP_API_URL}/bookmarks`, {title, url});
         this.props.onBookmarkFormSubmit(response.data);
+        this.setState(startState);
        } catch(error) {
         this.setState( { error });
        }
@@ -41,7 +45,8 @@ class BookmarksForm extends Component {
                     <label>URL</label>
                     <input type="text" name="url" value= {url} onChnage={this.onInputChange}></input>
                 </div>
-                <input type="submit" value="Create Bookmark"></input>
+                {fetching ? <p>Creating...</p> : <input type="submit" value="Create Bookmark"></input> }
+                
             </form>
             </>
         )

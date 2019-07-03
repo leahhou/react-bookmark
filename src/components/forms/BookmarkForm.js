@@ -1,12 +1,15 @@
 import React, {Component} from "react";
-import axios from "axios";
+import LocalAPI from "./../../apis/local";
+
+const state = {
+    title: "",
+    url: "",
+    error: null,
+    fetching: false
+}
 
 class BookmarkForm extends Component {
-    state = {
-        title: "",
-        url: "",
-        error: null
-    }
+    state = {...state}
 
     onInputChange = (event) => {
         this.setState({ [event.target.name]: event.target.value })
@@ -17,8 +20,10 @@ class BookmarkForm extends Component {
         const { title, url } = this.state;
         
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/bookmarks`, { title, url });
+            this.setState({ fetching : true });
+            const response = await LocalAPI.post(`/bookmarks`, { title, url });
             this.props.onBookmarkFormSubmit(response.data);
+            this.setState(state);
             
         } catch(error) {
             this.setState({ error });
@@ -26,7 +31,7 @@ class BookmarkForm extends Component {
     }
 
     render() {
-        const { title, url } = this.state;
+        const { title, url, fetching } = this.state;
 
         return(
             <form onSubmit={this.onFormSubmit}>
@@ -38,7 +43,7 @@ class BookmarkForm extends Component {
                     <label>Url</label>
                     <input type="text" name="url" value={url} onChange={this.onInputChange} />
                 </div>
-                <input type="submit" value="Create" />
+                {fetching ? <p>Creating...</p> : <input type="submit" value="Create" />}
             </form>
         );
     }
