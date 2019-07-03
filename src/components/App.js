@@ -7,17 +7,21 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 class App extends Component {
     state = {
-        token: null
+        token: sessionStorage.getItem("token") || null
     }
 
     onRegisterFormSubmit = (token, callback) => {
+        sessionStorage.setItem("token", token);
         this.setState({ token }, callback);
     }
 
     render() {
+        const { token } = this.state;
+
         return (
             <BrowserRouter>
                 <div>
+                    { token && <h4>User Logged In!</h4>}
                     <Switch>
                         <Route exact path="/" component={HomePage} />
                         <Route 
