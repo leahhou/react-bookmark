@@ -20,6 +20,7 @@ class App extends Component {
         }
     } 
 
+
     onRegisterFormSubmit = (token, callback) => {
         sessionStorage.setItem("token", token);
         LocalAPI.setAuthHeader(token);
