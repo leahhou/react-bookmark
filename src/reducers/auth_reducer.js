@@ -1,6 +1,6 @@
 const defaultState = {
-    token: null
-}
+    token: sessionStorage.getItem("token") || null
+};
 
 export default (state = defaultState, action)=>{
   switch(action.type){

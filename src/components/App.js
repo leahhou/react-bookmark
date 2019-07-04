@@ -8,28 +8,11 @@ import BookmarksPage from "./pages/BookmarksPage";
 import LocalAPI from "./../apis/local";
 import PrivateRoute from "./PrivateRoute";
 import history from "./../history";
+import { connect } from "react-redux";
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        const token = sessionStorage.getItem("token") || null;
-        this.state = { token };
-    
-        if (token) {
-            LocalAPI.setAuthHeader(token);
-        }
-    } 
-
-
-    onRegisterFormSubmit = (token, callback) => {
-        sessionStorage.setItem("token", token);
-        LocalAPI.setAuthHeader(token);
-        this.setState({ token }, callback);
-    }
-
     render() {
         const { token } = this.state;
-
         return (
             <Router history={history}>
                 <div>
@@ -37,11 +20,7 @@ class App extends Component {
                     <Switch>
                         <Route exact path="/" component={HomePage} />
                         <Route exact path="/bookmarks" component={BookmarksPage} />
-                        <Route 
-                            exact 
-                            path="/register" 
-                            render={(props) => <RegisterPage {...props} onRegisterFormSubmit={this.onRegisterFormSubmit} token={ token }/>} 
-                        />
+                        <Route exact path="/register" coponent={BookmarksPage}/>
                         <PrivateRoute exact path="/bookmarks" component={BookmarksPage} token={token} />
                         <Route component={NotFoundPage} />
                     </Switch>
@@ -51,4 +30,10 @@ class App extends Component {
     }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        token: state.auth.token
+    }
+}
+
+export default connect(mapStateToProps)(App);
