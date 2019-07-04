@@ -26,7 +26,7 @@ class BookmarkForm extends Component {
             this.setState(state);
             
         } catch(error) {
-            this.setState({ error });
+           //this.setState({ error });
         }
     }
 
