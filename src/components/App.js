@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import "./../styles/App.css";
 import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
@@ -7,6 +7,7 @@ import NotFoundPage from "./pages/NotFoundPage";
 import BookmarksPage from "./pages/BookmarksPage";
 import LocalAPI from "./../apis/local";
 import PrivateRoute from "./PrivateRoute";
+import history from "./../history";
 
 class App extends Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class App extends Component {
         const { token } = this.state;
 
         return (
-            <BrowserRouter>
+            <Router history={history}>
                 <div>
                     { token && <h4>User Logged In!</h4>}
                     <Switch>
@@ -40,11 +41,11 @@ class App extends Component {
                             path="/register" 
                             render={(props) => <RegisterPage {...props} onRegisterFormSubmit={this.onRegisterFormSubmit} token={ token }/>} 
                         />
-                        <PrivateRoute exact path="/bookmarks" component={BookmarksPage} />
+                        <PrivateRoute exact path="/bookmarks" component={BookmarksPage} token={token} />
                         <Route component={NotFoundPage} />
                     </Switch>
                 </div>
-            </BrowserRouter>
+            </Router>
         );
     }
 }
