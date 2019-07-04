@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import LocalAPI from "./../../apis/local";
+import { setAuthToken } from "./../../actions";
 
 class RegisterForm extends Component {
     state = { 
