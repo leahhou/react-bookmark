@@ -16,14 +16,9 @@ class RegisterForm extends Component {
 
         LocalAPI.post(`/auth/register`, { email, password})
             .then(response => {
-<<<<<<< HEAD
-                this.props.setAuthToken();
-                this.props.history.push("/");
-=======
                 this.props.setAuthToken(response.data.token);
                 this.props.history.push("/");
 
->>>>>>> upstream/master
                 // this.props.onRegisterFormSubmit(response.data.token, () => {
                 //     this.props.history.push("/");
                 // })
