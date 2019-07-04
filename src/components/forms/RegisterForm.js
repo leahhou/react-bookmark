@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import LocalAPI from "./../../apis/local";
 import { setAuthToken } from "./../../actions";
+import { connect } from "react-redux";
 
 class RegisterForm extends Component {
     state = { 
@@ -15,9 +16,11 @@ class RegisterForm extends Component {
 
         LocalAPI.post(`/auth/register`, { email, password})
             .then(response => {
-                this.props.onRegisterFormSubmit(response.data.token, () => {
-                    this.props.history.push("/");
-                })
+                this.props.setAuthToken();
+                this.props.history.push("/");
+                // this.props.onRegisterFormSubmit(response.data.token, () => {
+                //     this.props.history.push("/");
+                // })
             })
             .catch(error => console.log(error));
     }
@@ -47,4 +50,4 @@ class RegisterForm extends Component {
     }
 }
 
-export default RegisterForm;
+export default connect(null, { setAuthToken })(RegisterForm);
