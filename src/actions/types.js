@@ -1,0 +1,1 @@
+export const  BOOKMARKS_LIST = "BOOKMARKS_LIST";

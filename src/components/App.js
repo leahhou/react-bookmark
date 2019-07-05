@@ -5,7 +5,6 @@ import RegisterPage from "./pages/RegisterPage";
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import BookmarksPage from "./pages/BookmarksPage";
-import LocalAPI from "./../apis/local";
 import PrivateRoute from "./PrivateRoute";
 import history from "./../history";
 import { connect } from "react-redux";
