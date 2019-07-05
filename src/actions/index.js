@@ -1,4 +1,5 @@
 import { BOOKMARKS_LIST } from "./types";
+import LocalAPI from "./../apis/local";
 
 export const setAuthToken = (token) => {
     sessionStorage.setItem("token", token);
@@ -9,9 +10,12 @@ export const setAuthToken = (token) => {
 }
 
 export const fetchBookmarks = () => {
+    return async (dispatch, getState) => {
+        const response = await LocalAPI.get("/bookmarks");
 
-    return {
-        type: BOOKMARKS_LIST,
-        payload: [{ _id: "1234", title: "test", url: "http://google.com"}]
+        dispatch({
+            type: BOOKMARKS_LIST,
+            payload: response.data
+        });
     }
 }

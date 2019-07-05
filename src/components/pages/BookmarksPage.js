@@ -24,7 +24,9 @@ class BookmarksPage extends Component {
                     {bookmarks.map((item, index) => {
                         return (
                             <li key={item._id}>
-                                <a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}</a>
+                                <a href={item.url} target="_blank" rel="noopener noreferrer">
+                                    {item.title}
+                                </a>
                             </li>
                         );
                     })}
