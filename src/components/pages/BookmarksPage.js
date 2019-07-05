@@ -13,11 +13,22 @@ class BookmarksPage extends Component {
     }
 
     render() {
-        console.log(this.props.bookmarks);
+        const { bookmarks } = this.props;
+        
         return (
             <>
                 <h2>Create New Bookmark</h2>
                 <BookmarkForm onBookmarkFormSubmit={this.onBookmarkFormSubmit} />
+                <h2>My Bookmarks</h2>
+                <ul>
+                    {bookmarks.map((item, index) => {
+                        return (
+                            <li key={item._id}>
+                                <a href={item.url} target="_blank" rel="noopener noreferrer">{item.title}</a>
+                            </li>
+                        );
+                    })}
+                </ul>
             </>
         );
     }
