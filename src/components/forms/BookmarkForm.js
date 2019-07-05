@@ -1,5 +1,7 @@
 import React, {Component} from "react";
-import LocalAPI from "./../../apis/local";
+import { createBookmark } from "./../../actions";
+import { connect } from "react-redux";
+import { Field, reduxForm } from "redux-form";
 
 const state = {
     title: "",
@@ -20,10 +22,8 @@ class BookmarkForm extends Component {
         const { title, url } = this.state;
         
         try {
-            this.setState({ fetching : true });
-            const response = await LocalAPI.post(`/bookmarks`, { title, url });
-            this.props.onBookmarkFormSubmit(response.data);
-            this.setState(state);
+            // const response = await LocalAPI.post(`/bookmarks`, { title, url });
+            this.props.createBookmark(title, url);
             
         } catch(error) {
            //this.setState({ error });
@@ -49,4 +49,8 @@ class BookmarkForm extends Component {
     }
 }
 
-export default BookmarkForm
+const WrappedBookmarkForm = reduxForm({
+    form: "bookmark"
+})(BookmarkForm);
+
+export default connect(null, { createBookmark })(WrappedBookmarkForm);

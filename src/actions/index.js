@@ -9,13 +9,23 @@ export const setAuthToken = (token) => {
     }
 }
 
+export const setBookmarks = (bookmarks) => {
+    return {
+        type: BOOKMARKS_LIST,
+        payload: bookmarks
+    };
+} 
+
 export const fetchBookmarks = () => {
     return async (dispatch, getState) => {
         const response = await LocalAPI.get("/bookmarks");
-
-        dispatch({
-            type: BOOKMARKS_LIST,
-            payload: response.data
-        });
+        dispatch(setBookmarks(response.data));
     }
+}
+
+export const createBookmark = (title, url) => {
+    return async (dispatch, getState) => {
+        const response = await LocalAPI.post(`/bookmarks`, { title, url });
+        dispatch(setBookmarks(response.data));
+    } 
 }
